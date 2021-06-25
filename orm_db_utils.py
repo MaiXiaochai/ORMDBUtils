@@ -59,6 +59,16 @@ class ORMDBUtils:
         return self.session_safe()
 
     @sessionmaker
-    def fetchall(self):
-        # session_manager管理了self.session，所以，可以根据具体的Model对象，编写特定的方法
+    def fetchall(self, sql):
+        rows = self.session.execute(sql)
+        return rows.fetchall()
+
+    @sessionmaker
+    def fetchone(self, sql):
+        row = self.session.execute(sql)
+        return row.fetchone()
+
+    @sessionmaker
+    def other_method(self):
+        # session_manager对self.session的获取和关闭进行了管理，所以，可以根据具体的Model对象和业务，编写特定的抽象方法
         pass
